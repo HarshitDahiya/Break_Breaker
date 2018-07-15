@@ -146,7 +146,7 @@ function draw() {
 		dy=-dy
 	}
 
-	if (y + dy > canvas.height - paddleHeight - ballRadius && x + dx > paddleX && x + dx < paddleX + paddleWidth) {
+	if (y + dy > canvas.height - paddleHeight - ballRadius && x + dx >= paddleX - ballRadius && x + dx <= paddleX + paddleWidth - ballRadius) {
 		dy=-dy
 
 		if (rightPressed && dx<0) {
@@ -173,8 +173,8 @@ function draw() {
 
 	}
 
-	else if (y - 5*dy > canvas.height) {
-		alert("GamE OveR : Your Score" + score)
+	else if (y - dy >= canvas.height - ballRadius) {
+		alert("GamE OveR : Your Score " + score)
 		location.reload()
 	}
 
