@@ -9,17 +9,41 @@ var ballRadius = 14
 var dx=4
 var dy=-4
 
-var a=0
-var b=0
-var c=50
-var d=70
-var e=0
-var f=0
-
 var paddleHeight = 15
 var paddleWidth = 90
 var paddleX = (canvas.width - paddleWidth) / 2
 var paddleY = canvas.height - paddleHeight
+
+
+
+
+
+
+var brickRows = 5
+var brickCols = 13
+var brickWidth = 75
+var brickHeight = 20
+var brickPadding = 30
+var brickOffsetTop = 30
+var brickOffsetLeft = 10
+
+var bricks = []
+
+for(c=0;c<brickCols;c++) {
+	for(r=0;r<brickRows;r++) {
+		bricks.push({
+			x : (c * (brickWidth + brickPadding)) + brickOffsetLeft,
+			y : (r * (brickHeight + brickPadding)) + brickOffsetTop,
+			status : 1
+		})
+	}
+}
+
+
+
+
+
+
 
 var paddleDx=7
 var rightPressed
@@ -49,7 +73,7 @@ document.onkeyup = keyUpHandler
 function drawBall() {
 	ctx.beginPath()
 	ctx.arc(x , y , ballRadius , 0 , Math.PI*2)
-	ctx.fillStyle = "rgb(" + a + "," + b + "," + c + ")"
+	ctx.fillStyle = "red"
 	ctx.fill()
 	ctx.closePath()
 }
@@ -57,10 +81,50 @@ function drawBall() {
 function drawPaddle() {
 	ctx.beginPath()
 	ctx.rect(paddleX , paddleY , paddleWidth , paddleHeight)
-	ctx.fillStyle = "rgb(" + d + "," + e + "," + f + ")"
+	ctx.fillStyle = "blue"
 	ctx.fill()
 	ctx.closePath()
 }
+
+
+
+
+
+
+
+
+function drawBricks() {
+	bricks.forEach(function (brick) {
+		if (!brick.status) return;
+
+		ctx.beginPath()
+		ctx.rect(brick.x, brick.y, brickWidth, brickHeight)
+		ctx.fillStyle = "indigo"
+		ctx.fill()
+		ctx.closePath()
+	})
+}
+
+function collisionDetection() {												//For collision between the ball and bricks
+	bricks.forEach(function(b) {
+		if (!b.status) return;
+
+		var inBrickColumn = x > b.x && x < b.x + brickWidth
+		var inBrickRow = y > b.y  && y < b.y + brickHeight
+
+		if (inBrickColumn && inBrickRow) {
+			dy = -dy
+			b.status = 0
+			score+=1
+		}
+	})
+}
+
+
+
+
+
+
 
 function draw() {
 	ctx.clearRect(0 , 0 , canvas.width , canvas.height)
@@ -68,33 +132,23 @@ function draw() {
 	drawBall()
 	drawPaddle()
 
+
+	drawBricks()
+	collisionDetection()
+
+
 	Score.innerHTML = "SCORE: " + score
 	
 	if (x + dx > canvas.width - ballRadius || x + dx < ballRadius) {
 		dx = -dx
-		a = Math.floor(Math.random()*180)
-		b = Math.floor(Math.random()*180)
-		c = Math.floor(Math.random()*180)
 	}
 	
-	/*if (y + dy < ballRadius || (y + dy > canvas.height - paddleHeight - ballRadius && x + dx > paddleX && x + dx < paddleX + paddleWidth)) {
-		dy = -dy
-	}*/
 	if(y + dy < ballRadius){
 		dy=-dy
-		a = Math.floor(Math.random()*180)
-		b = Math.floor(Math.random()*180)
-		c = Math.floor(Math.random()*180)
 	}
 
 	if (y + dy > canvas.height - paddleHeight - ballRadius && x + dx > paddleX && x + dx < paddleX + paddleWidth) {
 		dy=-dy
-		a = Math.floor(Math.random()*180)
-		b = Math.floor(Math.random()*180)
-		c = Math.floor(Math.random()*180)
-		d = Math.floor(Math.random()*180)
-		e = Math.floor(Math.random()*180)
-		f = Math.floor(Math.random()*180)
 
 		if (rightPressed && dx<0) {
 			if (dx<-2 || dx>2) {
@@ -117,8 +171,6 @@ function draw() {
 				dx+=2
 			}
 		}
-
-		score += 1
 
 	}
 
