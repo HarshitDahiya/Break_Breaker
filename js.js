@@ -109,8 +109,8 @@ function collisionDetection() {												//For collision between the ball and 
 	bricks.forEach(function(b) {
 		if (!b.status) return;
 
-		var inBrickColumn = x > b.x && x < b.x + brickWidth
-		var inBrickRow = y > b.y  && y < b.y + brickHeight
+		var inBrickColumn = x + ballRadius > b.x && x - ballRadius < b.x + brickWidth
+		var inBrickRow = y+ ballRadius > b.y  && y - ballRadius < b.y + brickHeight
 
 		if (inBrickColumn && inBrickRow) {
 			dy = -dy
@@ -147,7 +147,7 @@ function draw() {
 		dy=-dy
 	}
 
-	if (y + dy > canvas.height - paddleHeight - ballRadius && x + dx >= paddleX - ballRadius && x + dx <= paddleX + paddleWidth - ballRadius) {
+	if (y + dy > canvas.height - paddleHeight - ballRadius && x + dx > paddleX && x + dx < paddleX + paddleWidth) {
 		dy=-dy
 
 		if (rightPressed && dx<0) {
@@ -174,16 +174,8 @@ function draw() {
 
 	}
 
-<<<<<<< HEAD
-	else if (y - dy >= canvas.height - ballRadius) {
-		alert("GamE OveR : Your Score " + score)
-=======
 	else if (y - 5*dy > canvas.height) {
-		alert("GamE OveR")
-<<<<<<< HEAD
->>>>>>> parent of 0509075... Second Commit
-=======
->>>>>>> parent of 0509075... Second Commit
+		alert("GamE OveR : Your Score" + score)
 		location.reload()
 	}
 
