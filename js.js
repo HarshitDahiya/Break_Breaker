@@ -16,7 +16,7 @@ var paddleY = canvas.height - paddleHeight
 
 
 
-
+//controlZ till here ^#^
 
 
 var brickRows = 5
@@ -151,23 +151,50 @@ function draw() {
 		dy=-dy
 
 		if (rightPressed && dx<0) {
-			dx-=2
+				dx-=2
+				if (dy<0){
+					dy-=2
+				}
+				else if (dy>0) {
+					dy+=2
+				}
 		}
 		if (leftPressed && dx>0) {
-			dx+=2
+				dx+=2
+				if (dy<0){
+					dy-=2
+				}
+				else if (dy>0) {
+					dy+=2
+				}
 		}
-
 		if (rightPressed && dx>0) {
-			dx-=2
+			if (dx<-2 || dx>2) {
+				dx-=2
+				if (dy<0){
+					dy+=2
+				}
+				else if (dy>0) {
+					dy-=2
+				}
+			}
 		}
 		if (leftPressed && dx<0) {
-			dx+=2
+			if (dx<-2 || dx>2) {
+				dx+=2
+				if (dy<0){
+					dy+=2
+				}
+				else if (dy>0) {
+					dy-=2
+				}
+			}
 		}
 
 	}
 
-	else if (y - 5*dy > canvas.height) {
-		alert("GamE OveR : Your Score    " + score)
+	else if (y > canvas.height) {
+		alert("GamE OveR : Your Score  " + score)
 		location.reload()
 	}
 
