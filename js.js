@@ -138,15 +138,15 @@ function draw() {
 
 	Score.innerHTML = "SCORE: " + score
 	
-	if (x > canvas.width - ballRadius || x < ballRadius) {
+	if (x + dx > canvas.width - ballRadius || x + dx < ballRadius) {
 		dx = -dx
 	}
 	
-	if(y < ballRadius){
+	if(y + dy < ballRadius){
 		dy=-dy
 	}
 
-	if (y > canvas.height - paddleHeight - ballRadius && x >= paddleX - ballRadius && x <= paddleX + paddleWidth - ballRadius) {
+	if (y + dy > canvas.height - paddleHeight - ballRadius && x + dx >= paddleX - ballRadius && x + dx <= paddleX + paddleWidth - ballRadius) {
 		dy=-dy
 
 /*
@@ -179,7 +179,7 @@ function draw() {
 
 	}
 
-	else if (y >= canvas.height) {
+	else if (y + dy > canvas.height) {
 		alert("GamE OveR : Your Score " + score)
 		location.reload()
 	}
