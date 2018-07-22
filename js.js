@@ -180,6 +180,9 @@ function draw() {
 =======
 	else if (y - 5*dy > canvas.height) {
 		alert("GamE OveR")
+<<<<<<< HEAD
+>>>>>>> parent of 0509075... Second Commit
+=======
 >>>>>>> parent of 0509075... Second Commit
 		location.reload()
 	}
