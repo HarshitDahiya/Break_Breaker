@@ -6,8 +6,8 @@ var score=0
 var x = canvas.width/2
 var y = canvas.height-60
 var ballRadius = 14
-var dx=4
-var dy=-4
+var dx=2
+var dy=-2
 
 var paddleHeight = 15
 var paddleWidth = 90
@@ -147,35 +147,27 @@ function draw() {
 		dy=-dy
 	}
 
-	if (y + dy > canvas.height - paddleHeight - ballRadius && x + dx > paddleX && x + dx < paddleX + paddleWidth) {
+	if (y + dy > canvas.height - paddleHeight - ballRadius && x + ballRadius > paddleX && x - ballRadius< paddleX + paddleWidth) {
 		dy=-dy
 
 		if (rightPressed && dx<0) {
-			if (dx<-2 || dx>2) {
-				dx-=2	
-			}
+			dx-=2
 		}
 		if (leftPressed && dx>0) {
-			if (dx<-2 || dx>2) {
-				dx+=2
-			}
+			dx+=2
 		}
 
 		if (rightPressed && dx>0) {
-			if (dx<-2 || dx>2) {
-				dx-=2
-			}
+			dx-=2
 		}
 		if (leftPressed && dx<0) {
-			if (dx<-2 || dx>2) {
-				dx+=2
-			}
+			dx+=2
 		}
 
 	}
 
 	else if (y - 5*dy > canvas.height) {
-		alert("GamE OveR : Your Score" + score)
+		alert("GamE OveR : Your Score    " + score)
 		location.reload()
 	}
 
