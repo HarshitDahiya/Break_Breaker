@@ -109,8 +109,8 @@ function collisionDetection() {												//For collision between the ball and 
 	bricks.forEach(function(b) {
 		if (!b.status) return;
 
-		var inBrickColumn = x > b.x - ballRadius && x < b.x + brickWidth + ballRadius
-		var inBrickRow = y > b.y - ballRadius  && y < b.y + brickHeight + ballRadius
+		var inBrickColumn = x > b.x && x < b.x + brickWidth
+		var inBrickRow = y > b.y  && y < b.y + brickHeight
 
 		if (inBrickColumn && inBrickRow) {
 			dy = -dy
@@ -119,6 +119,7 @@ function collisionDetection() {												//For collision between the ball and 
 		}
 	})
 }
+
 
 
 
@@ -173,8 +174,13 @@ function draw() {
 
 	}
 
+<<<<<<< HEAD
 	else if (y - dy >= canvas.height - ballRadius) {
 		alert("GamE OveR : Your Score " + score)
+=======
+	else if (y - 5*dy > canvas.height) {
+		alert("GamE OveR")
+>>>>>>> parent of 0509075... Second Commit
 		location.reload()
 	}
 
